@@ -1,71 +1,54 @@
 <odoo>
     <data>
-        <!-- explicit list view definition -->
+
         <record model="ir.ui.view" id="test_estimation_test_estimation_work_units_tree">
             <field name="name">task_estimation.work_units list</field>
             <field name="model">task_estimation.work_units</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name_unit"/>
+                    <field name="name_seq"/>
+                    <field name="name"/>
                     <field name="minutes_to_do"/>
                 </tree>
             </field>
         </record>
 
-        <!-- explicit form view definition -->
-<!--        <record id="task_estimation_form" model="ir.ui.view">-->
-<!--            <field name="name">task.estimation.form</field>-->
-<!--            <field name="model">task_estimation.task_estimation</field>-->
-<!--            <field name="arch" type="xml">-->
-<!--                &lt;!&ndash; Required &ndash;&gt;-->
-<!--                <form string="Task Estimation">-->
-<!--                    <sheet>-->
-<!--                        <div>-->
-<!--                            <group col='4'>-->
-<!--                                <field name="name_of_task"/>-->
-<!--                                <field name="basic_index"/>-->
-<!--                                <field name="comprehension_index"/>-->
-<!--                                <field name="technical_risks"/>-->
-<!--                            </group>-->
-<!--                        </div>-->
-<!--                        <div>-->
-<!--                            <group col='3'>-->
-<!--                                <field name="hours_perfect"/>-->
-<!--                                <field name="hours_real_time"/>-->
-<!--                                <field name="hours_low_performance"/>-->
-<!--                            </group>-->
-<!--                        </div>-->
-<!--                    </sheet>-->
-<!--                </form>-->
-<!--            </field>-->
-<!--        </record>-->
+        <record id="task_estimation_work_units_form" model="ir.ui.view">
+            <field name="name">task_estimation.work_units.form</field>
+            <field name="model">task_estimation.work_units</field>
+            <field name="arch" type="xml">
+                <!-- Required -->
+                <form string="Task Estimation">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name_seq" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="minutes_to_do"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <!-- actions opening views on models -->
-<!--        <record model="ir.actions.act_window" id="task_estimation_work_units_action_window">-->
-<!--            <field name="name">Work Unit</field>-->
-<!--            <field name="res_model">task_estimation.work_units</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--        </record>-->
-        -->
-        <!-- server action to the one above -->
-        <!--    <record model="ir.actions.server" id="task_estimation.action_server">-->
-        <!--      <field name="name">task_estimation server</field>-->
-        <!--      <field name="model_id" ref="model_task_estimation_task_estimation"/>-->
-        <!--      <field name="state">code</field>-->
-        <!--      <field name="code">-->
-        <!--        action = {-->
-        <!--          "type": "ir.actions.act_window",-->
-        <!--          "view_mode": "tree,form",-->
-        <!--          "res_model": model._name,-->
-        <!--        }-->
-        <!--      </field>-->
-        <!--    </record>-->
+        <record model="ir.actions.act_window" id="work_units_action_window">
+            <field name="name">Work Unit</field>
+            <field name="res_model">task_estimation.work_units</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
         <!-- Top menu item -->
-<!--        <menuitem name="Task Estimation" id="task_estimation.menu_root"/>-->
-<!--        &lt;!&ndash; menu categories &ndash;&gt;-->
-<!--        <menuitem name="Menu 2" id="task_estimation.menu_2" parent="task_estimation.menu_root"/>-->
-<!--        &lt;!&ndash; actions &ndash;&gt;-->
-<!--        <menuitem name="List" id="task_estimation.menu_1_list" parent="task_estimation.menu_2"-->
-<!--                  action="task_estimation_work_units_action_window"/>-->
+        <menuitem name="Task Estimation" id="task_estimation.menu_root"/>
+        <!-- menu categories -->
+        <menuitem name="Work Units" id="task_estimation.menu_2" parent="task_estimation.menu_root"
+                  action="work_units_action_window"/>
     </data>
 </odoo>
