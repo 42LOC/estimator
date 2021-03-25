@@ -10,6 +10,7 @@ class WorkUnits(models.Model):
     name_seq = fields.Char(string='Work Unit Reference', required=True, copy=False, readonly=True, index=True,
                            default=lambda self: _('New'))
 
+
     @api.model
     def create(self, vals):
         if vals.get('name_seq', _('New')) == _('New'):

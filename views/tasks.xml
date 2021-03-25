@@ -7,6 +7,7 @@
             <field name="model">task_estimation.task_estimation</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="name_task_seq"/>
                     <field name="name_of_task"/>
                 </tree>
             </field>
@@ -27,7 +28,7 @@
                                 </h1>
                             </div>
                             <group col='4'>
-                                <field name="name_of_task"/>
+                                <field name="name_of_task" required="1"/>
                                 <field name="basic_index"/>
                                 <field name="comprehension_index"/>
                                 <field name="technical_risks"/>
@@ -59,56 +60,12 @@
             </field>
         </record>
 
-        <!--        <record model="ir.ui.view" id="test_estimation_test_estimation_work_units_tree">-->
-        <!--            <field name="name">task_estimation.work_units list</field>-->
-        <!--            <field name="model">task_estimation.work_units</field>-->
-        <!--            <field name="arch" type="xml">-->
-        <!--                <tree>-->
-        <!--                    <field name="name_seq"/>-->
-        <!--                    <field name="name"/>-->
-        <!--                    <field name="minutes_to_do"/>-->
-        <!--                </tree>-->
-        <!--            </field>-->
-        <!--        </record>-->
-
-        <!-- explicit form view definition -->
-        <!--        <record id="task_estimation_work_units_form" model="ir.ui.view">-->
-        <!--            <field name="name">task_estimation.work_units.form</field>-->
-        <!--            <field name="model">task_estimation.work_units</field>-->
-        <!--            <field name="arch" type="xml">-->
-        <!--                &lt;!&ndash; Required &ndash;&gt;-->
-        <!--                <form string="Task Estimation">-->
-        <!--                    <sheet>-->
-        <!--                        <div class="oe_title">-->
-        <!--                            <h1>-->
-        <!--                                <field name="name_seq" readonly="1"/>-->
-        <!--                            </h1>-->
-        <!--                        </div>-->
-        <!--                        <group>-->
-        <!--                            <group>-->
-        <!--                                <field name="name"/>-->
-        <!--                            </group>-->
-        <!--                            <group>-->
-        <!--                                <field name="minutes_to_do"/>-->
-        <!--                            </group>-->
-        <!--                        </group>-->
-        <!--                    </sheet>-->
-        <!--                </form>-->
-        <!--            </field>-->
-        <!--        </record>-->
         <!-- actions opening views on models -->
         <record model="ir.actions.act_window" id="task_estimation.action_window">
             <field name="name">Task estimation</field>
             <field name="res_model">task_estimation.task_estimation</field>
             <field name="view_mode">tree,form</field>
         </record>
-        -->
-        <!--        <record model="ir.actions.act_window" id="work_units_action_window">-->
-        <!--            <field name="name">Work Unit</field>-->
-        <!--            <field name="res_model">task_estimation.work_units</field>-->
-        <!--            <field name="view_mode">tree,form</field>-->
-        <!--        </record>-->
-
 
         <!-- Top menu item -->
         <menuitem name="Task Estimation" id="task_estimation.menu_root"/>
