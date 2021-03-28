@@ -6,10 +6,9 @@ class WorkUnits(models.Model):
     _description = 'task_estimation.work_units'
 
     name = fields.Char(string="Name of Unit")
-    minutes_to_do = fields.Integer(string="Mins")
+    minutes_to_do = fields.Float(string="Mins")
     name_seq = fields.Char(string='Work Unit Reference', required=True, copy=False, readonly=True, index=True,
                            default=lambda self: _('New'))
-
 
     @api.model
     def create(self, vals):
