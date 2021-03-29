@@ -8,7 +8,9 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name_task_seq"/>
+                    <field name="author"/>
                     <field name="name_of_task"/>
+                    <field name="total_task_time"/>
                 </tree>
             </field>
         </record>
@@ -29,6 +31,7 @@
                             </div>
                             <group col='4'>
                                 <field name="name_of_task" required="1"/>
+                                <field name="author" required="1"/>
                                 <field name="basic_index"/>
                                 <field name="comprehension_index"/>
                                 <field name="technical_risks"/>
@@ -38,23 +41,48 @@
                                 <field name="hours_perfect"/>
                                 <field name="hours_real_time"/>
                                 <field name="hours_low_performance"/>
+                                <field name="units_id" invisible="1"/>
                             </group>
                         </div>
                     </sheet>
                     <sheet>
                         <notebook>
                             <page string="List of work units">
-                                <field name="unit_works_lines" string="Task Lines">
+                                <field name="unit_works_lines" string="Task Lines" sum="Total">
                                     <tree>
                                         <field name="workunit_id"/>
+                                        <field name="minutes_to_do"/>
                                         <field name="workunit_quantity"/>
+                                        <field name="total_time" sum="1" label="Total"/>
                                     </tree>
                                 </field>
+<!--                                <field name="total_task_time"/>-->
                             </page>
                             <page string="Description">
                                 <field name="notes"/>
                             </page>
                         </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="task_estimation_lines_form" model="ir.ui.view">
+            <field name="name">task.estimation.lines.form</field>
+            <field name="model">task_estimation.lines</field>
+            <field name="arch" type="xml">
+                <!-- Required -->
+                <form string="Task One">
+                    <sheet>
+                        <div>
+                            <group>
+                                <field name="workunit_id" string="Work Unit ID"/>
+                            </group>
+                            <group>
+                                <field name="workunit_quantity" string="Quantity"/>
+                            </group>
+                            <field name="task_id" invisible="1"/>
+                        </div>
                     </sheet>
                 </form>
             </field>
