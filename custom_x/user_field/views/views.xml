@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="user_field_list">
+            <field name="name">user_field_view_list</field>
+            <field name="model">task_estimation.task_estimation</field>
+            <field name="inherit_id" ref="task_estimation.task_estimation_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='author']" position="replace">
+                    <field name="author"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
