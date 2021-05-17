@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="hide_fields">
+            <field name="name">hide_fields_view</field>
+            <field name="model">task_estimation.work_units</field>
+            <field name="inherit_id" ref="task_estimation.test_estimation_test_estimation_work_units_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name_seq']" position="replace"/>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hide_fields2">
+            <field name="name">hide_fields_view2</field>
+            <field name="model">task_estimation.work_units</field>
+            <field name="inherit_id" ref="task_estimation.task_estimation_work_units_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name_seq']" position="replace"/>
+            </field>
+        </record>
+
+    </data>
+</odoo>
