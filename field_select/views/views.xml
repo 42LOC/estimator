@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="field_select_form">
+            <field name="name">field_select_view_form</field>
+            <field name="model">task_estimation.task_estimation</field>
+            <field name="inherit_id" ref="task_estimation.task_estimation_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='technical_risks']" position="replace">
+                    <field name="technical_risks"/>
+                </xpath>
+                <xpath expr="//field[@name='comprehension_index']" position="replace">
+                    <field name="comprehension_index"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
