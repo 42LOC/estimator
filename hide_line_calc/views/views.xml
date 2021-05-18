@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hide_lines_calc_form">
+            <field name="name">hide_lines_calc_view_form</field>
+            <field name="model">task_estimation.task_estimation</field>
+            <field name="inherit_id" ref="task_estimation.task_estimation_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='total_time']" position="replace">
+                    <field name="total_time"/>
+                </xpath>
+
+                <xpath expr="//field[@name='hours_perfect']" position="replace">
+                    <field name="total_task_time"/>
+                </xpath>
+
+                <xpath expr="//field[@name='minutes_to_do']" position="before">
+                    <xpath expr="//field[@name='workunit_quantity']" position="move"/>
+                </xpath>
+            </field>
+
+        </record>
+    </data>
+</odoo>
