@@ -46,9 +46,9 @@
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Task Estimation" id="task_estimation.menu_root"/>
+        <menuitem name="Task Estimation" id="estimator.menu_root"/>
         <!-- menu categories -->
-        <menuitem name="Work Units" id="task_estimation.menu_2" parent="task_estimation.menu_root"
+        <menuitem name="Work Units" id="estimator.menu_2" parent="estimator.menu_root"
                   action="work_units_action_window"/>
     </data>
 </odoo>
