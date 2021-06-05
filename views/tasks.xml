@@ -2,9 +2,9 @@
     <data>
 
         <!-- explicit list view definition -->
-        <record model="ir.ui.view" id="task_estimation.list">
+        <record model="ir.ui.view" id="estimator.list">
             <field name="name">task_estimation list</field>
-            <field name="model">task_estimation.task_estimation</field>
+            <field name="model">estimator.task_estimation</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="name_task_seq"/>
@@ -18,7 +18,7 @@
         <!-- explicit form view definition -->
         <record id="task_estimation_form" model="ir.ui.view">
             <field name="name">task.estimation.form</field>
-            <field name="model">task_estimation.task_estimation</field>
+            <field name="model">estimator.task_estimation</field>
             <field name="arch" type="xml">
                 <!-- Required -->
                 <form string="Task Estimation">
@@ -89,17 +89,17 @@
         </record>
 
         <!-- actions opening views on models -->
-        <record model="ir.actions.act_window" id="task_estimation.action_window">
+        <record model="ir.actions.act_window" id="estimator.action_window">
             <field name="name">Task estimation</field>
-            <field name="res_model">task_estimation.task_estimation</field>
+            <field name="res_model">estimator.task_estimation</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Task Estimation" id="task_estimation.menu_root"/>
+        <menuitem name="Task Estimation" id="estimator.menu_root"/>
         <!-- menu categories -->
-        <menuitem name="Taks Estimation" id="task_estimation.menu_1" parent="task_estimation.menu_root"
-                  action="task_estimation.action_window"/>
+        <menuitem name="Taks Estimation" id="estimator.menu_1" parent="estimator.menu_root"
+                  action="estimator.action_window"/>
         <!--        <menuitem name="Work Units" id="task_estimation.menu_2" parent="task_estimation.menu_root"-->
         <!--                  action="work_units_action_window"/>-->
     </data>

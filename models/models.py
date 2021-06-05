@@ -3,8 +3,8 @@
 from odoo import models, fields, api, _
 
 
-class task_estimation(models.Model):
-    _name = 'task_estimation.task_estimation'
+class estimator(models.Model):
+    _name = 'estimator.task_estimation'
     _description = 'task_estimation.task_estimation'
 
     name_of_task = fields.Char(string="Task Name", required=True)
@@ -20,13 +20,7 @@ class task_estimation(models.Model):
                                 index=True,
                                 default=lambda self: _('New'))
     units_id = fields.Many2one('task_estimation.work_units', string='Units ID')
-    author = fields.Selection([
-        ('roman', 'Roman Shveda'),
-        ('viatalii', 'Vitalii Hlapshun'),
-        ('andrii', 'Andrii Zhigyl'),
-        ('eugen', ' Eugen Zagoruiko'),
-    ], string="Author", default='eugen')
-
+    author = fields.Many2one('hr.employee', string="Author")
     total_task_time = fields.Float(store=True, compute="total_task_calc", string="Total Time")
 
     @api.depends('unit_works_lines.total_time')
@@ -41,9 +35,9 @@ class task_estimation(models.Model):
     def create(self, vals):
         if vals.get('name_task_seq', _('New')) == _('New'):
             vals['name_task_seq'] = self.env['ir.sequence'].next_by_code(
-                'task_estimation.task_estimation.sequence') or _('New')
+                'estimator.task_estimation.sequence') or _('New')
 
-        result = super(task_estimation, self).create(vals)
+        result = super(estimator, self).create(vals)
         return result
 
 
@@ -54,7 +48,7 @@ class TaskEstimationLines(models.Model):
     workunit_id = fields.Many2one('task_estimation.work_units', string="Work Unit ID", ondelete="cascade")
     workunit_quantity = fields.Integer(string="Quantity")
     minutes_to_do = fields.Float(string="Time to perform", related="workunit_id.minutes_to_do")
-    task_id = fields.Many2one('task_estimation.task_estimation')
+    task_id = fields.Many2one('estimator.task_estimation')
     total_time = fields.Float(store=True, compute="total_calc", string="Total Time (Mins)")
 
     @api.depends('minutes_to_do', 'workunit_quantity')
