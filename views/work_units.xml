@@ -6,7 +6,7 @@
             <field name="model">task_estimation.work_units</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name_seq"/>
+                    <field name="name_seq" invisible="1"/>
                     <field name="minutes_to_do"/>
                     <field name="name"/>
                 </tree>
@@ -22,7 +22,7 @@
                     <sheet>
                         <div class="oe_title">
                             <h1>
-                                <field name="name_seq" readonly="1"/>
+                                <field name="name_seq" readonly="1" invisible="1"/>
                             </h1>
                         </div>
                         <group>
