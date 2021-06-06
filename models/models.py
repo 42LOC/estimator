@@ -9,8 +9,16 @@ class estimator(models.Model):
 
     name_of_task = fields.Char(string="Task Name", required=True)
     basic_index = fields.Float(string="Basic Index")
-    comprehension_index = fields.Float(string="Comprehension Index")
-    technical_risks = fields.Float(string="Technical Risks")
+    technical_risks = fields.Selection([
+        ('1.1', '1.1'),
+        ('1.2', '1.2'),
+        ('1.4', '1.4'),
+    ], string="Technical risks")
+    comprehension_index = fields.Selection([
+        ('1.2', '1.2'),
+        ('1.5', '1.5'),
+        ('1.7', '1.7'),
+    ], string="Comprehension index")
     hours_perfect = fields.Float(string="Perfect (hours)")
     hours_real_time = fields.Float(string="Peal Time (hours)")
     hours_low_performance = fields.Float(string="Low performance (hours)")
