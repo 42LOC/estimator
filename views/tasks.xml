@@ -53,7 +53,7 @@
                                         <field name="workunit_id"/>
                                         <field name="workunit_quantity"/>
                                         <field name="minutes_to_do"/>
-                                        <field name="total_time" sum="1" label="Total"/>
+                                        <field name="total_time" label="Total"/>
                                     </tree>
                                 </field>
 <!--                                <field name="total_task_time"/>-->
