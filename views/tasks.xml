@@ -51,8 +51,8 @@
                                 <field name="unit_works_lines" string="Task Lines" sum="Total">
                                     <tree>
                                         <field name="workunit_id"/>
-                                        <field name="minutes_to_do"/>
                                         <field name="workunit_quantity"/>
+                                        <field name="minutes_to_do"/>
                                         <field name="total_time" sum="1" label="Total"/>
                                     </tree>
                                 </field>
