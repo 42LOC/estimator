@@ -96,7 +96,7 @@
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Task Estimation" id="estimator.menu_root"/>
+        <menuitem name="Task Estimation" id="estimator.menu_root" web_icon="estimator,static/description/icon.png"/>
         <!-- menu categories -->
         <menuitem name="Taks Estimation" id="estimator.menu_1" parent="estimator.menu_root"
                   action="estimator.action_window"/>
