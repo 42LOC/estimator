@@ -10,7 +10,7 @@
                     <field name="name_task_seq"/>
                     <field name="author"/>
                     <field name="name_of_task"/>
-                    <field name="total_task_time"/>
+                    <field name="total_task_time" widget="float_time"/>
                 </tree>
             </field>
         </record>
@@ -38,9 +38,9 @@
                             </group>
 
                             <group col='3'>
-                                <field name="hours_perfect"/>
-                                <field name="hours_real_time"/>
-                                <field name="hours_low_performance"/>
+                                <field name="hours_perfect" widget="float_time"/>
+                                <field name="hours_real_time" widget="float_time"/>
+                                <field name="hours_low_performance" widget="float_time"/>
                                 <field name="units_id" invisible="1"/>
                             </group>
                         </div>
@@ -52,8 +52,8 @@
                                     <tree>
                                         <field name="workunit_id"/>
                                         <field name="workunit_quantity"/>
-                                        <field name="minutes_to_do"/>
-                                        <field name="total_time" label="Total"/>
+                                        <field name="minutes_to_do" widget="float_time"/>
+                                        <field name="total_time" label="Total" widget="float_time"/>
                                     </tree>
                                 </field>
 <!--                                <field name="total_task_time"/>-->

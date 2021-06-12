@@ -66,7 +66,7 @@ class TaskEstimationLines(models.Model):
     workunit_quantity = fields.Integer(string="Quantity")
     minutes_to_do = fields.Float(string="Time to perform", related="workunit_id.minutes_to_do")
     task_id = fields.Many2one('estimator.task_estimation')
-    total_time = fields.Float(store=True, compute="total_calc", string="Total Time (Mins)")
+    total_time = fields.Float(store=True, compute="total_calc", string="Total Time (Hours)")
 
     @api.depends('minutes_to_do', 'workunit_quantity')
     def total_calc(self):
