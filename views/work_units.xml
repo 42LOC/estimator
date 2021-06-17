@@ -7,8 +7,8 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name_seq" invisible="1"/>
-                    <field name="minutes_to_do" widget="float_time"/>
                     <field name="name"/>
+                    <field name="minutes_to_do" widget="float_time"/>
                 </tree>
             </field>
         </record>
