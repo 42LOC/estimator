@@ -29,7 +29,7 @@ class estimator(models.Model):
                                 default=lambda self: _('New'))
     units_id = fields.Many2one('task_estimation.work_units', string='Units ID')
     author = fields.Many2one('hr.employee', string="Author")
-    total_task_time = fields.Float(store=True, compute="total_task_calc", string="Total Time")
+    total_task_time = fields.Float(store=True, compute="total_task_calc", string="Total Time (hh:mm)")
 
     @api.depends('unit_works_lines.total_time')
     def total_task_calc(self):
