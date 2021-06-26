@@ -13,7 +13,7 @@ class WorkUnits(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('name_seq', _('New')) == _('New'):
-            vals['name_seq'] = self.env['ir.sequence'].next_by_code('task_estimation.work_units.sequence') or _('New')
+            vals['name_seq'] = self.env['ir.sequence'].next_by_code('estimator.work_units.sequence') or _('New')
 
         result = super(WorkUnits, self).create(vals)
         return result
