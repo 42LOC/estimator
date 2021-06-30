@@ -23,6 +23,11 @@
                 <!-- Required -->
                 <form string="Task Estimation">
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name='tasks_count_author' type="object" class="oe_stat_button" icon="fa-calendar">
+                                <field name="tasks_count" string="Author Tasks" widget="statinfo"/>
+                            </button>
+                        </div>
                         <div>
                             <div class="oe_title">
                                 <h1>

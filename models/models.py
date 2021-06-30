@@ -30,6 +30,7 @@ class estimator(models.Model):
     units_id = fields.Many2one('task_estimation.work_units', string='Units ID')
     author = fields.Many2one('hr.employee', string="Author")
     total_task_time = fields.Float(store=True, compute="total_task_calc", string="Total Time (hh:mm)")
+    tasks_count = fields.Integer(string='Count of author tasks', compute='get_count_tasks')
 
     @api.depends('unit_works_lines.total_time')
     def total_task_calc(self):
@@ -57,6 +58,19 @@ class estimator(models.Model):
     def calc_ow_performance(self):
         self.hours_low_performance = self.hours_perfect * 1.4 * 1.7
 
+    def tasks_count_author(self):
+        return {
+            'name': _('Count_tasks'),
+            'domain': [('author.id', '=', self.author.id)],
+            'res_model': 'estimator.task_estimation',
+            'view_id': False,
+            'view_mode': 'tree,form',
+            'type': 'ir.actions.act_window',
+        }
+
+    def get_count_tasks(self):
+        count = self.env['estimator.task_estimation'].search_count([('author.id', '=', self.author.id)])
+        self.tasks_count = count
 
 class TaskEstimationLines(models.Model):
     _name = 'task_estimation.lines'
