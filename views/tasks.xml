@@ -10,7 +10,7 @@
                     <field name="name_task_seq"/>
                     <field name="author"/>
                     <field name="name_of_task"/>
-                    <field name="total_task_time" widget="float_time"/>
+                    <field name="total_task_time" widget="float_time" sum="Total"/>
                 </tree>
             </field>
         </record>
@@ -53,12 +53,12 @@
                     <sheet>
                         <notebook>
                             <page string="List of work units">
-                                <field name="unit_works_lines" string="Task Lines" sum="Total">
+                                <field name="unit_works_lines" string="Task Lines">
                                     <tree>
                                         <field name="workunit_id"/>
                                         <field name="workunit_quantity"/>
                                         <field name="minutes_to_do" widget="float_time"/>
-                                        <field name="total_time" label="Total" widget="float_time"/>
+                                        <field name="total_time" widget="float_time"/>
                                     </tree>
                                 </field>
 <!--                                <field name="total_task_time"/>-->
