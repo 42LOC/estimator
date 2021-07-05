@@ -121,6 +121,7 @@
                             <group col="1">
                                 <field name="name"/>
                                 <field name="company" string="Company name"/>
+                                <field name="create_date"/>
                                 <field name="total_perfect_hours" string="Total Perfect Hours" widget="float_time"/>
                                 <field name="total_real_time" string="Total Real Time" widget="float_time"/>
                                 <field name="total_low_performance" string="Total Low Performance" widget="float_time"/>
@@ -140,6 +141,9 @@
                                         <field name="hours_low_performance" widget="float_time"/>
                                     </tree>
                                 </field>
+                            </page>
+                            <page string="Description">
+                                <field name="note"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -181,11 +185,11 @@
                                                 <br></br>
                                             </td>
                                             <td align="right">
-                                                <field name="total_perfect_hours"/>
+                                                Perfect Hours--<field name="total_perfect_hours"/>
                                                 <br></br>
-                                                <field name="total_real_time"/>
+                                                Real Time--<field name="total_real_time"/>
                                                 <br></br>
-                                                <field name="total_low_performance"/>
+                                                Low Perfor.--<field name="total_low_performance"/>
                                             </td>
                                         </tr>
                                     </table>

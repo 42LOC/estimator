@@ -122,6 +122,8 @@ class Project(models.Model):
 
     name = fields.Char(string="Project name", required=True)
     company = fields.Char(string="Company name", required=True)
+    create_date = fields.Datetime(string='Date of creation')
+    note = fields.Text(string='Description')
     total_perfect_hours = fields.Float(string="Total Perfect Hours", compute='total_calc_per_hours')
     total_real_time = fields.Float(string="Total Real Time", compute='total_calc_real_time')
     total_low_performance = fields.Float(string="Total Low Performance", compute='total_calc_low_performance')
