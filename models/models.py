@@ -3,7 +3,7 @@
 from odoo import models, fields, api, _
 
 
-class estimator(models.Model):
+class Estimator(models.Model):
     _name = 'estimator.task_estimation'
     _description = 'task_estimation.task_estimation'
 
@@ -60,7 +60,7 @@ class estimator(models.Model):
             vals['name_task_seq'] = self.env['ir.sequence'].next_by_code(
                 'estimator.task_estimation.sequence') or _('New')
 
-        result = super(estimator, self).create(vals)
+        result = super(Estimator, self).create(vals)
         return result
 
     @api.depends('hours_perfect', 'comprehension_index', 'technical_risks')
@@ -134,6 +134,17 @@ class Project(models.Model):
         ('done', 'Done'),
         ('cancelled', 'Cancelled')
         ], default='draft', string="Status")
+
+    def add_command(self):
+        return {
+            "name": _('Command'),
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_id": False,
+            "res_model": "estimator.command",
+            "view_mode": "tree,form",
+            "domain": [],
+        }
 
     @api.depends('tasks.hours_perfect')
     def total_calc_per_hours(self):

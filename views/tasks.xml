@@ -126,6 +126,7 @@
                                 <field name="total_real_time" string="Total Real Time" widget="float_time"/>
                                 <field name="total_low_performance" string="Total Low Performance" widget="float_time"/>
                             </group>
+                            <button name="add_command" string="Add your command" type="object" class="btn-primary"/>
                         </div>
                     </sheet>
                     <sheet>
@@ -185,22 +186,14 @@
                                                 <br></br>
                                             </td>
                                             <td align="right">
-                                                Perfect Hours--<field name="total_perfect_hours"/>
+                                                Perfect Hours--<field name="total_perfect_hours" widget="float_time"/>
                                                 <br></br>
-                                                Real Time--<field name="total_real_time"/>
+                                                Real Time--<field name="total_real_time" widget="float_time"/>
                                                 <br></br>
-                                                Low Perfor.--<field name="total_low_performance"/>
+                                                Low Perfor.--<field name="total_low_performance" widget="float_time"/>
                                             </td>
                                         </tr>
                                     </table>
-<!--                                    <sheet>-->
-<!--                                        <group col="1">-->
-<!--                                            <field name="company"/>-->
-<!--                                            <field name="total_perfect_hours"/>-->
-<!--                                            <field name="total_real_time"/>-->
-<!--                                            <field name="total_low_performance"/>-->
-<!--                                        </group>-->
-<!--                                    </sheet>-->
                                 </div>
                             </div>
                         </t>
