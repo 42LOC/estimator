@@ -4,3 +4,4 @@ access_task_estimation_work_units,task_estimation.work_units,model_task_estimati
 access_task_estimation_lines,task_estimation.lines,model_task_estimation_lines,base.group_user,1,1,1,1
 access_estimator_command,estimator.command,model_estimator_command,base.group_user,1,1,1,1
 access_estimator_project,estimator.project,model_estimator_project,base.group_user,1,1,1,1
+access_estimator_command_roles,estimator.command_roles,model_estimator_command_roles,base.group_user,1,1,1,1

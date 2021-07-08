@@ -7,7 +7,7 @@ class Estimator(models.Model):
     _name = 'estimator.task_estimation'
     _description = 'task_estimation.task_estimation'
 
-    name_of_task = fields.Char(string="Task Name", required=True)
+    name = fields.Char(string="Task Name", required=True)
     basic_index = fields.Float(string="Basic Index")
     technical_risks = fields.Selection([
         ('1.1', '1.1'),
@@ -32,13 +32,7 @@ class Estimator(models.Model):
     total_task_time = fields.Float(store=True, compute="total_task_calc", string="Total Time (hh:mm)")
     tasks_count = fields.Integer(string='Count of author tasks', compute='get_count_tasks')
     task_id = fields.Many2one('estimator.project')
-    role = fields.Selection([
-        ('analyst', 'Analyst'),
-        ('designer', 'Designer'),
-        ('develop', 'Developer'),
-        ('qa', 'QA'),
-        ('PM', 'PM')
-    ], string='Role')
+    role = fields.Many2one('estimator.command_roles', string='Role')
 
     @api.onchange('author')
     def _onchange_author(self):
@@ -107,13 +101,14 @@ class Command(models.Model):
     _description = 'Command'
 
     name = fields.Many2one('hr.employee', string="Author")
-    role = fields.Selection([
-        ('analyst', 'Analyst'),
-        ('designer', 'Designer'),
-        ('develop', 'Developer'),
-        ('qa', 'QA'),
-        ('PM', 'PM')
-    ], string='Role')
+    role = fields.Many2one('estimator.command_roles', string='Role')
+
+
+class CommandRoles(models.Model):
+    _name = 'estimator.command_roles'
+    _description = 'Command Roles'
+
+    name = fields.Char('Role', store=True)
 
 
 class Project(models.Model):
