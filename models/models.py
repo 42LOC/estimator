@@ -101,14 +101,15 @@ class Command(models.Model):
     _description = 'Command'
 
     name = fields.Many2one('hr.employee', string="Author")
-    role = fields.Many2one('estimator.command_roles', string='Role')
+    role_id = fields.Many2one('estimator.command_roles', string='Role')
 
 
 class CommandRoles(models.Model):
     _name = 'estimator.command_roles'
     _description = 'Command Roles'
 
-    name = fields.Char('Role', store=True)
+    name = fields.Char('Role')
+    name_id = fields.One2many('estimator.command', 'role_id')
 
 
 class Project(models.Model):
