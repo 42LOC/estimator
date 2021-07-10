@@ -103,7 +103,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="role"/>
+                    <field name="role_id"/>
                 </tree>
             </field>
         </record>
@@ -112,7 +112,7 @@
             <field name="name">Estimator command role list</field>
             <field name="model">estimator.command_roles</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree editable="top">
                     <field name="name"/>
                 </tree>
             </field>
