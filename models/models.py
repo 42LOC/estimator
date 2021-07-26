@@ -13,12 +13,12 @@ class Estimator(models.Model):
         ('1.1', '1.1'),
         ('1.2', '1.2'),
         ('1.4', '1.4'),
-    ], string="Technical risks", default='1.1')
+    ], string="Technical risks", default='1.1', groups="estimator.group_manager_estimator")
     comprehension_index = fields.Selection([
         ('1.2', '1.2'),
         ('1.5', '1.5'),
         ('1.7', '1.7'),
-    ], string="Comprehension index", default='1.2')
+    ], string="Comprehension index", default='1.2', groups="estimator.group_manager_estimator")
     hours_perfect = fields.Float(store=True, compute="total_task_calc", string="Perfect (hours)")
     hours_real_time = fields.Float(store=True, compute="calc_peal_time", string="Real Time (hours)")
     hours_low_performance = fields.Float(store=True, compute="calc_ow_performance", string="Low performance (hours)")
@@ -37,7 +37,7 @@ class Estimator(models.Model):
     @api.onchange('author')
     def _onchange_author(self):
         write_data = self.env['estimator.command'].search([('id', '=', self.author.id)])
-        self.role = write_data.role
+        self.role = write_data.role_id
 
     @api.depends('unit_works_lines.total_time')
     def total_task_calc(self):
@@ -109,7 +109,6 @@ class CommandRoles(models.Model):
     _description = 'Command Roles'
 
     name = fields.Char('Role')
-    name_id = fields.One2many('estimator.command', 'role_id')
 
 
 class Project(models.Model):
