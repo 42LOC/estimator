@@ -120,9 +120,13 @@ class Project(models.Model):
     create_date = fields.Datetime(string='Date of creation')
     note = fields.Text(string='Description')
     total_perfect_hours = fields.Float(string="Total Perfect Hours", compute='total_calc_per_hours')
+    total_perfect_hours_by_role = fields.Float('Total Perfect Hours by Role', compute='_compute_total_hours_by_role')
     total_real_time = fields.Float(string="Total Real Time", compute='total_calc_real_time')
+    total_real_time_by_role = fields.Float(string="Total Real Time by Role", compute='_compute_total_hours_by_role')
     total_low_performance = fields.Float(string="Total Low Performance", compute='total_calc_low_performance')
+    total_low_performance_by_role = fields.Float(string="Total Low Performance by Role", compute='_compute_total_hours_by_role')
     tasks = fields.One2many('estimator.task_estimation', 'task_id', string="List of Tasks")
+    role_id = fields.Many2one('estimator.command_roles')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirm', 'Confirm'),
@@ -140,6 +144,19 @@ class Project(models.Model):
             "view_mode": "tree,form",
             "domain": [],
         }
+
+    @api.depends('role_id')
+    def _compute_total_hours_by_role(self):
+        records = self.env['estimator.task_estimation'].search([('role', '=', self.role_id.name)])
+        for rec in records:
+            self.total_perfect_hours_by_role += rec.hours_perfect
+            self.total_real_time_by_role += rec.hours_real_time
+            self.total_low_performance_by_role += rec.hours_low_performance
+        self.env['estimator.project'].write({
+            'total_perfect_hours_by_role': self.total_perfect_hours_by_role,
+            'total_real_time_by_role': self.total_real_time_by_role,
+            'total_low_performance_by_role': self.total_low_performance_by_role
+        })
 
     @api.depends('tasks.hours_perfect')
     def total_calc_per_hours(self):
