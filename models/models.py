@@ -127,6 +127,7 @@ class Project(models.Model):
     total_low_performance_by_role = fields.Float(string="Total Low Performance by Role", compute='_compute_total_hours_by_role')
     tasks = fields.One2many('estimator.task_estimation', 'task_id', string="List of Tasks")
     role_id = fields.Many2one('estimator.command_roles')
+    project_risk = fields.Integer('Project Risk, %')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirm', 'Confirm'),
@@ -165,6 +166,8 @@ class Project(models.Model):
             for line in task.tasks:
                 total += line.hours_perfect
             task.total_perfect_hours = total
+            if task.project_risk:
+                task.total_perfect_hours = task.total_perfect_hours+(task.total_perfect_hours*task.project_risk/100)
 
     @api.depends('tasks.hours_real_time')
     def total_calc_real_time(self):
@@ -173,6 +176,8 @@ class Project(models.Model):
             for line in task.tasks:
                 total += line.hours_real_time
             task.total_real_time = total
+            if task.project_risk:
+                task.total_real_time = task.total_real_time+(task.total_real_time*task.project_risk/100)
 
     @api.depends('tasks.hours_low_performance')
     def total_calc_low_performance(self):
@@ -181,3 +186,5 @@ class Project(models.Model):
             for line in task.tasks:
                 total += line.hours_low_performance
             task.total_low_performance = total
+            if task.project_risk:
+                task.total_low_performance = task.total_low_performance+(task.total_low_performance*task.project_risk/100)

@@ -129,13 +129,24 @@
                     <sheet>
                         <div>
                             <group col="1">
-                                <field name="name"/>
-                                <field name="company" string="Company name"/>
-                                <field name="create_date"/>
-                                <field name="total_perfect_hours" string="Total Perfect Hours" widget="float_time" groups="estimator.group_manager_estimator"/>
-                                <field name="total_real_time" string="Total Real Time" widget="float_time" groups="estimator.group_manager_estimator"/>
-                                <field name="total_low_performance" string="Total Low Performance" widget="float_time" groups="estimator.group_manager_estimator"/>
-                                <field name="role_id" string="Total Hours by Role" groups="estimator.group_manager_estimator"/>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="company" string="Company name"/>
+                                    <field name="create_date"/>
+                                </group>
+                                <group col="2">
+                                    <group>
+                                        <field name="total_perfect_hours" string="Total Perfect Hours" widget="float_time" groups="estimator.group_manager_estimator"/>
+                                        <field name="total_real_time" string="Total Real Time" widget="float_time" groups="estimator.group_manager_estimator"/>
+                                        <field name="total_low_performance" string="Total Low Performance" widget="float_time" groups="estimator.group_manager_estimator"/>
+                                    </group>
+                                    <group>
+                                        <field name="project_risk"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="role_id" string="Total Hours by Role" groups="estimator.group_manager_estimator"/>
+                                </group>
                             </group>
                             <group col="1" attrs="{'invisible': [('role_id','=',False)]}" groups="estimator.group_manager_estimator">
                                 <table class="table table-sm o_main_table">
