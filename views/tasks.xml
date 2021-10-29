@@ -101,7 +101,7 @@
             <field name="name">Estimator command list</field>
             <field name="model">estimator.command</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree editable="top">
                     <field name="name"/>
                     <field name="role_id"/>
                 </tree>
