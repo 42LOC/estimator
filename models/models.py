@@ -7,7 +7,7 @@ class Estimator(models.Model):
     _name = 'estimator.task_estimation'
     _description = 'task_estimation.task_estimation'
 
-    name = fields.Char(string="Task Name", required=True)
+    name = fields.Many2one('project.task', string="Task Name")
     basic_index = fields.Float(string="Basic Index")
     technical_risks = fields.Selection([
         ('1.1', '1.1'),
@@ -29,7 +29,7 @@ class Estimator(models.Model):
                                 default=lambda self: _('New'))
     units_id = fields.Many2one('task_estimation.work_units', string='Units ID')
     author = fields.Many2one('estimator.command', string="Author")
-    total_task_time = fields.Float(store=True, compute="total_task_calc", string="Total Time (hh:mm)")
+    total_task_time = fields.Float(store=True, string="Total Time (hh:mm)")
     tasks_count = fields.Integer(string='Count of author tasks', compute='get_count_tasks')
     task_id = fields.Many2one('estimator.project')
     role = fields.Many2one('estimator.command_roles', string='Role')
@@ -39,7 +39,7 @@ class Estimator(models.Model):
         write_data = self.env['estimator.command'].search([('id', '=', self.author.id)])
         self.role = write_data.role_id
 
-    @api.depends('unit_works_lines.total_time')
+    @api.onchange('unit_works_lines')
     def total_task_calc(self):
         for task in self:
             total = 0.0
@@ -85,22 +85,22 @@ class TaskEstimationLines(models.Model):
     _description = 'Task Lines'
 
     workunit_id = fields.Many2one('task_estimation.work_units', string="Work Unit ID", ondelete="cascade")
-    workunit_quantity = fields.Integer(string="Quantity")
+    quantity = fields.Integer(string="Quantity")
     minutes_to_do = fields.Float(string="Time to perform", related="workunit_id.minutes_to_do")
     task_id = fields.Many2one('estimator.task_estimation')
-    total_time = fields.Float(store=True, compute="total_calc", string="Total Time (Hours)")
+    total_time = fields.Float(string="Total Time")
 
-    @api.depends('minutes_to_do', 'workunit_quantity')
+    @api.onchange('quantity')
     def total_calc(self):
         for record in self:
-            record.total_time = record.workunit_id.minutes_to_do * record.workunit_quantity
+            record.total_time = record.workunit_id.minutes_to_do * record.quantity
 
 
 class Command(models.Model):
     _name = 'estimator.command'
     _description = 'Command'
 
-    name = fields.Many2one('hr.employee', string="Author")
+    name = fields.Many2one('res.users', string="Author")
     role_id = fields.Many2one('estimator.command_roles', string='Role')
 
 
@@ -188,3 +188,25 @@ class Project(models.Model):
             task.total_low_performance = total
             if task.project_risk:
                 task.total_low_performance = task.total_low_performance+(task.total_low_performance*task.project_risk/100)
+
+class ProjectInherit(models.Model):
+    _inherit = 'project.task'
+
+    def estimation(self):
+        work_units = self.env['estimator.command'].search([])
+        for rec in work_units:
+            if self.user_id.name == rec.name.name:
+                author = rec.id
+        view_id = self.env['estimator.task_estimation']
+        vals = {
+            'name': self.id,
+            'author': author
+        }
+        new = view_id.create(vals)
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_id': new.id,
+            'res_model': 'estimator.task_estimation',
+            'target': 'new',
+        }

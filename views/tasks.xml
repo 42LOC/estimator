@@ -1,6 +1,18 @@
 <odoo>
     <data>
 
+        <record model="ir.ui.view" id="inherit_view_task_form">
+            <field name="name">project.task.inherit.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="groups_id" eval="[(4, ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='tag_ids']" position="after">
+                        <button name="estimation" string="Estmation" type="object" class="oe_highlight"/>
+                    </xpath>
+            </field>
+        </record>
+
         <!-- explicit list view definition -->
         <record model="ir.ui.view" id="estimator.list">
             <field name="name">task_estimation list</field>
@@ -60,9 +72,9 @@
                                 <field name="unit_works_lines" string="Task Lines">
                                     <tree>
                                         <field name="workunit_id"/>
-                                        <field name="workunit_quantity"/>
-                                        <field name="minutes_to_do" widget="float_time"/>
-                                        <field name="total_time" widget="float_time"/>
+                                        <field name="quantity" string="Quantity"/>
+                                        <field name="minutes_to_do" widget="float_time" string="Minutes to do"/>
+                                        <field name="total_time" widget="float_time" string="Total time"/>
                                     </tree>
                                 </field>
 <!--                                <field name="total_task_time"/>-->
@@ -88,7 +100,10 @@
                                 <field name="workunit_id" string="Work Unit ID"/>
                             </group>
                             <group>
-                                <field name="workunit_quantity" string="Quantity"/>
+                                <field name="quantity" string="Quantity"/>
+                            </group>
+                            <group>
+                                <field name="minutes_to_do" string="Minutes"/>
                             </group>
                             <field name="task_id" invisible="1"/>
                         </div>
