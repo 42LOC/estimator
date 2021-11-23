@@ -10,4 +10,5 @@ access_estimator_command,estimator.command,model_estimator_command,base.group_us
 access_estimator_project,estimator.project,model_estimator_project,base.group_user,1,1,1,0
 access_estimator_project_manager,estimator.project,model_estimator_project,estimator.group_manager_estimator,1,1,1,1
 access_estimator_command_roles_manager,estimator.command_roles,model_estimator_command_roles,estimator.group_manager_estimator,1,1,1,1
+access_estimator_command_roles,estimator.command_roles,model_estimator_command_roles,base.group_user,1,1,1,0
 access_estimator_wizard_project_user,estimator_wizard_project_user,model_estimator_wizard_project_user,base.group_user,1,1,1,1

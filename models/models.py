@@ -216,6 +216,16 @@ class ProjectInherit(models.Model):
                 'create_date': datetime.now(),
                 'company': self.user_id.company_id.id
             })
+        task_id = self.env['estimator.task_estimation'].search([('name', '=', self.id)])
+        if task_id:
+            return {
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_id': task_id.id,
+                'view_id': self.env.ref('estimator.task_estimation_project_form', False).id,
+                'res_model': 'estimator.task_estimation',
+                'target': 'new',
+            }
         view_id = self.env['estimator.task_estimation']
         vals = {
             'name': self.id,
