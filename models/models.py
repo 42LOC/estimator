@@ -191,6 +191,7 @@ class Project(models.Model):
             if task.project_risk:
                 task.total_low_performance = task.total_low_performance+(task.total_low_performance*task.project_risk/100)
 
+
 class ProjectInherit(models.Model):
     _inherit = 'project.task'
 
@@ -214,7 +215,8 @@ class ProjectInherit(models.Model):
             rec = self.env['estimator.project'].create({
                 'name': self.project_id.id,
                 'create_date': datetime.now(),
-                'company': self.user_id.company_id.id
+                'company': self.user_id.company_id.id,
+                'state': 'confirm'
             })
         task_id = self.env['estimator.task_estimation'].search([('name', '=', self.id)])
         if task_id:
