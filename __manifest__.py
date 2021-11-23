@@ -26,6 +26,7 @@
     'data': [
         'security/estimator_security.xml',
         'security/ir.model.access.csv',
+        'wizard/wizard_project_view.xml',
         'views/tasks.xml',
         'views/work_units.xml',
         'data/sequence.xml',

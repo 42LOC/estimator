@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from datetime import datetime
 from odoo import models, fields, api, _
 
 
@@ -7,18 +7,19 @@ class Estimator(models.Model):
     _name = 'estimator.task_estimation'
     _description = 'task_estimation.task_estimation'
 
+    project_id = fields.Many2one('project.project', string='Project:', readonly=True)
     name = fields.Many2one('project.task', string="Task Name")
     basic_index = fields.Float(string="Basic Index")
     technical_risks = fields.Selection([
         ('1.1', '1.1'),
         ('1.2', '1.2'),
         ('1.4', '1.4'),
-    ], string="Technical risks", default='1.1', groups="estimator.group_manager_estimator")
+    ], string="Technical risks", default='1.1')
     comprehension_index = fields.Selection([
         ('1.2', '1.2'),
         ('1.5', '1.5'),
         ('1.7', '1.7'),
-    ], string="Comprehension index", default='1.2', groups="estimator.group_manager_estimator")
+    ], string="Comprehension index", default='1.2')
     hours_perfect = fields.Float(store=True, compute="total_task_calc", string="Perfect (hours)")
     hours_real_time = fields.Float(store=True, compute="calc_peal_time", string="Real Time (hours)")
     hours_low_performance = fields.Float(store=True, compute="calc_ow_performance", string="Low performance (hours)")
@@ -32,14 +33,15 @@ class Estimator(models.Model):
     total_task_time = fields.Float(store=True, string="Total Time (hh:mm)")
     tasks_count = fields.Integer(string='Count of author tasks', compute='get_count_tasks')
     task_id = fields.Many2one('estimator.project')
-    role = fields.Many2one('estimator.command_roles', string='Role')
+    role = fields.Many2one('estimator.command_roles', string='Role', compute='_compute_author_role', store=True)
 
-    @api.onchange('author')
-    def _onchange_author(self):
-        write_data = self.env['estimator.command'].search([('id', '=', self.author.id)])
-        self.role = write_data.role_id
+    @api.depends('author')
+    def _compute_author_role(self):
+        for rec in self:
+            write_data = rec.env['estimator.command'].search([('id', '=', rec.author.id)])
+            rec.role = write_data.role_id
 
-    @api.onchange('unit_works_lines')
+    @api.depends('unit_works_lines')
     def total_task_calc(self):
         for task in self:
             total = 0.0
@@ -115,8 +117,8 @@ class Project(models.Model):
     _name = 'estimator.project'
     _description = 'Project'
 
-    name = fields.Char(string="Project name", required=True)
-    company = fields.Char(string="Company name", required=True)
+    name = fields.Many2one('project.project', string='Project:')
+    company = fields.Many2one('res.partner', string="Company name", required=True)
     create_date = fields.Datetime(string='Date of creation')
     note = fields.Text(string='Description')
     total_perfect_hours = fields.Float(string="Total Perfect Hours", compute='total_calc_per_hours')
@@ -148,7 +150,7 @@ class Project(models.Model):
 
     @api.depends('role_id')
     def _compute_total_hours_by_role(self):
-        records = self.env['estimator.task_estimation'].search([('role', '=', self.role_id.name)])
+        records = self.env['estimator.task_estimation'].search([('role', '=', self.role_id.id)])
         for rec in records:
             self.total_perfect_hours_by_role += rec.hours_perfect
             self.total_real_time_by_role += rec.hours_real_time
@@ -193,20 +195,40 @@ class ProjectInherit(models.Model):
     _inherit = 'project.task'
 
     def estimation(self):
+        author = False
         work_units = self.env['estimator.command'].search([])
         for rec in work_units:
             if self.user_id.name == rec.name.name:
                 author = rec.id
+        if not author:
+            return {
+                'name': _('First add this user into your command'),
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_model': 'estimator.wizard.project.user',
+                'target': 'new',
+                # 'context': {'new_user': True}
+            }
+        rec = self.env['estimator.project'].search([('name', '=', self.project_id.id)])
+        if not rec:
+            rec = self.env['estimator.project'].create({
+                'name': self.project_id.id,
+                'create_date': datetime.now(),
+                'company': self.user_id.company_id.id
+            })
         view_id = self.env['estimator.task_estimation']
         vals = {
             'name': self.id,
-            'author': author
+            'author': author,
+            'project_id': self.project_id.id,
+            'task_id': rec.id
         }
         new = view_id.create(vals)
         return {
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'res_id': new.id,
+            'view_id': self.env.ref('estimator.task_estimation_project_form', False).id,
             'res_model': 'estimator.task_estimation',
             'target': 'new',
         }
