@@ -316,11 +316,11 @@
                                                 <br></br>
                                             </td>
                                             <td align="right" groups="estimator.group_manager_estimator">
-                                                Perfect Hours--<field name="total_perfect_hours" widget="float_time"/>
+                                                Perfect Hours - <field name="total_perfect_hours" widget="float_time"/>
                                                 <br></br>
-                                                Real Time--<field name="total_real_time" widget="float_time"/>
+                                                Real Time - <field name="total_real_time" widget="float_time"/>
                                                 <br></br>
-                                                Low Perfor.--<field name="total_low_performance" widget="float_time"/>
+                                                Low Perfor. - <field name="total_low_performance" widget="float_time"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -364,7 +364,7 @@
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Task Estimation Project" id="estimator.menu_root" web_icon="estimator,static/description/icon.png"/>
+        <menuitem name="Task Estimation Project" id="estimator.menu_root" web_icon="estimator,static/description/banner.png"/>
         <!-- menu categories -->
         <menuitem name="Project" id="estimator.menu_1" parent="estimator.menu_root"
                   action="estimator.project"/>

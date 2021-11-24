@@ -150,7 +150,8 @@ class Project(models.Model):
 
     @api.depends('role_id')
     def _compute_total_hours_by_role(self):
-        records = self.env['estimator.task_estimation'].search([('role', '=', self.role_id.id)])
+        records = self.env['estimator.task_estimation'].search([('role', '=', self.role_id.id),
+                                                                ('project_id', '=', self.name.id)])
         for rec in records:
             self.total_perfect_hours_by_role += rec.hours_perfect
             self.total_real_time_by_role += rec.hours_real_time
@@ -212,7 +213,7 @@ class ProjectInherit(models.Model):
             }
         rec = self.env['estimator.project'].search([('name', '=', self.project_id.id)])
         if not rec:
-            rec = self.env['estimator.project'].create({
+            rec = self.env['estimator.project'].sudo().create({
                 'name': self.project_id.id,
                 'create_date': datetime.now(),
                 'company': self.user_id.company_id.id,
