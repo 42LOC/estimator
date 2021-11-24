@@ -1,27 +1,27 @@
 # -*- coding: utf-8 -*-
+
+# Copyright © 2021 42loc Creation (<https://odoo-42loc.com/>)
+# @author: Eugen Zahoruiko (<intuit07@gmail.com>)
+# @author: Taras Feshak (<tarasfeshak@gmail.com>)
+
 {
     'name': "Task estimation",
-
+    'author': "42loc",
+    'website': "https://odoo-42loc.com/",
     'summary': """
         Tasks estimation""",
-
     'description': """
         Long description of module's purpose
     """,
-
-    'author': "42loc",
-    'website': "https://odoo-42loc.com/",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/13.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
     'category': 'Timesheets',
-    'version': '0.1',
-
-    # any module necessary for this one to work correctly
-    'depends': ['base', 'hr', 'project'],
-
-    # always loaded
+    'version': '13.0',
+    'support': 'intuit07@gmail.com, tarasfeshak@gmail.com',
+    'license': 'GPL-3',
+    'depends': [
+        'base',
+        'hr',
+        'project'
+    ],
     'data': [
         'security/estimator_security.xml',
         'security/ir.model.access.csv',
@@ -30,8 +30,5 @@
         'views/work_units.xml',
         'data/sequence.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'demo': [],
 }
