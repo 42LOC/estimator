@@ -364,7 +364,11 @@
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Task Estimation Project" id="estimator.menu_root" web_icon="estimator,static/description/banner.png"/>
+        <menuitem name="Task Estimation Project"
+                  id="estimator.menu_root"
+                  web_icon="estimator,static/description/banner.png"
+                  groups="estimator.group_manager_estimator"
+        />
         <!-- menu categories -->
         <menuitem name="Project" id="estimator.menu_1" parent="estimator.menu_root"
                   action="estimator.project"/>
